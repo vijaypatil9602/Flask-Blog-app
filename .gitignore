@@ -1,0 +1,18 @@
+# Virtual Environment
+# This stops from uploading your venv folder
+venv/
+*.venv/
+env/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Local database file (if still have it)
+*.db
+*.sqlite3
+
+# IDE and system files
+.vscode/
+.idea/
+.DS_Store

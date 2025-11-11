@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    /* smooth transition to the password fields */
+    .password-group .form-control {
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* This is the GREEN "match" glow */
+    .password-match .form-control {
+        border-color: #28a745 !important; /* Green border */
+        box-shadow: 0 0 8px rgba(40, 167, 69, 0.6) !important; /* Green glow */
+    }
+
+    /* This is the RED "mismatch" glow */
+    .password-mismatch .form-control {
+        border-color: #dc3545 !important; /* Red border */
+        box-shadow: 0 0 8px rgba(220, 53, 69, 0.6) !important; /* Red glow */
+    }
+</style>
+
+<!-- 
+  Existing "Glassmorphism" form.
+  It will now use the styles above.
+-->
+<div class="form-container" id="form-container">
+    <form method="POST" action="">
+        <!-- CSRF token (required by Flask-WTF) -->
+        {{ form.hidden_tag() }}
+        
+        <fieldset>
+            <legend>Register Now!</legend>
+            
+            <div class="form-group">
+                {{ form.name.label }}
+                {% if form.name.errors %}
+                    {{ form.name(class="form-control-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.name.errors %}<span>{{ error }}</span>{% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.name(class="form-control") }}
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.email.label }}
+                {% if form.email.errors %}
+                    {{ form.email(class="form-control-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}<span>{{ error }}</span>{% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(class="form-control") }}
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                {{ form.mobile.label }}
+                {% if form.mobile.errors %}
+                    {{ form.mobile(class="form-control-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.mobile.errors %}<span>{{ error }}</span>{% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.mobile(class="form-control") }}
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.address.label }}
+                {% if form.address.errors %}
+                    {{ form.address(class="form-control-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.address.errors %}<span>{{ error }}</span>{% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.address(class="form-control") }}
+                {% endif %}
+            </div>
+            
+            <!-- Password Field -->
+            <div class="form-group password-group">
+                {{ form.password.label }}
+                <!-- id="password" here for the script to find it -->
+                {{ form.password(class="form-control", id="password") }}
+                <button type="button" class="toggle-password" data-target="password">Show</button>
+                {% if form.password.errors %}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}<span style="font-size: 0.8rem;">{{ error }}</span><br>{% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Confirm Password Field -->
+            <!-- this parent div a new ID to target it -->
+            <div class="form-group password-group" id="confirm-password-group">
+                {{ form.confirm_password.label }}
+                <!-- id="confirm_password" here -->
+                {{ form.confirm_password(class="form-control", id="confirm_password") }}
+                <button type="button" class="toggle-password" data-target="confirm_password">Show</button>
+                {% if form.confirm_password.errors %}
+                    <div class="invalid-feedback">
+                        {% for error in form.confirm_password.errors %}<span>{{ error }}</span>{% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            
+        </fieldset>
+        
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary btn-full") }}
+        </div>
+        <div class="form-group" style="text-align: center; margin-top: 1rem;">
+            <a href="{{ url_for('auth.login') }}" style="color: var(--text-color-muted); text-decoration: none;">Already have an account? Sign In</a>
+        </div>
+    </form>
+</div>
+
+<!-- 
+  JavaScript for the animation.
+  It listens for you to type and compares the fields.
+-->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 1. Get the elements
+        const passwordField = document.getElementById('password');
+        const confirmPasswordField = document.getElementById('confirm_password');
+        const confirmGroup = document.getElementById('confirm-password-group');
+
+        // 2. Create a function to check the passwords
+        function validatePasswordMatch() {
+            const passVal = passwordField.value;
+            const confirmVal = confirmPasswordField.value;
+
+            // If the confirm box is empty, don't show any color
+            if (confirmVal === '') {
+                confirmGroup.classList.remove('password-match');
+                confirmGroup.classList.remove('password-mismatch');
+            }
+            // If it's not empty AND it matches, show GREEN
+            else if (passVal === confirmVal) {
+                confirmGroup.classList.add('password-match');
+                confirmGroup.classList.remove('password-mismatch');
+            } 
+            // If it's not empty AND it doesn't match, show RED
+            else {
+                confirmGroup.classList.add('password-mismatch');
+                confirmGroup.classList.remove('password-match');
+            }
+        }
+
+        // 3. Add listeners to *both* fields to check on every keystroke
+        passwordField.addEventListener('input', validatePasswordMatch);
+        confirmPasswordField.addEventListener('input', validatePasswordMatch);
+    });
+</script>
+
+{% endblock content %}

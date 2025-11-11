@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="hero-section dashboard-welcome">
+        <h2>Welcome, {{ user.name }}! 👋</h2>
+        <p>This is your command center. Review your posts, check your stats, or create something new.</p>
+    </div>
+
+    <!-- This is the title for posts -->
+    <h2 class="feed-title">Your Posts</h2>
+
+    {% if posts %}
+        <div class="post-grid">
+            {% for post in posts %}
+                <article class="post-summary">
+                    <h2><a href="{{ url_for('crud.view_post', post_id=post.id) }}">{{ post.title }}</a></h2>
+                    <div class="post-meta">
+                        By {{ post.author.name }} on {{ post.date_posted.strftime('%Y-%m-%d') }}
+                    </div>
+                    <p>{{ post.content | truncate(150) }}</Go></p> <!-- Shows a 150-char preview -->
+                </article>
+            {% endfor %}
+        </div> <!-- End of post-grid -->
+    {% else %}
+        <div class="post-summary" style="text-align: center;">
+            <h3>You haven't created any posts yet.</h3>
+            <p style="margin-top: 1rem;">
+                <a href="{{ url_for('crud.new_post') }}" class="btn btn-primary">Create your first post!</a>
+            </p>
+        </div>
+    {% endif %}
+
+{% endblock content %}

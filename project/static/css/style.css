@@ -1,0 +1,420 @@
+/* === Import Google Font === */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* === CSS Variables (Your Site's Colors) === */
+:root {
+    --primary-color: #0d6efd;
+    --primary-hover: #0a58ca;
+    --secondary-color: #6c757d;
+    --secondary-hover: #5a6268;
+    --danger-color: #dc3545;
+    --danger-hover: #c82333;
+    
+    /* Glassmorphism Text Colors */
+    --text-color: #f8f9fa; /* Light text for dark glass */
+    --text-color-muted: #adb5bd; /* Muted light text */
+    --text-color-dark: #212529; /* Dark text for light glass */
+    --text-color-dark-muted: #6c757d; /* Muted dark text */
+
+    /* Glass Colors */
+    --glass-bg-dark: rgba(10, 10, 20, 0.6); /* Main dark glass */
+    --glass-bg-light: rgba(248, 249, 250, 0.85); /* Light glass for posts */
+    
+    /* Other vars */
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    --border-radius: 12px;
+}
+
+/* === NEW DYNAMIC BACKGROUND === */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    
+    /* Animated Gradient */
+    background: linear-gradient(315deg, #4854e7, #bf00c0, #00dbde, #00c06a);
+    background-size: 400% 400%;
+    animation: gradientAnimation 20s ease infinite;
+    min-height: 100vh;
+}
+
+/* === Gradient Animation === */
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Header  */
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    
+    /* 1. Made the glass darker (0.4 instead of 0.2) */
+    background: rgba(0, 0, 0, 0.4); 
+    
+    /* 2. Made the blur stronger (15px instead of 10px) */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+/* ===================== */
+
+.header-nav .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.header-nav .logo:hover {
+    color: var(--primary-color);
+}
+
+.header-nav .nav-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.header-nav .nav-links a {
+    text-decoration: none;
+    color: var(--text-color-muted);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    transition: all 0.2s;
+}
+
+.header-nav .nav-links a:hover {
+    color: var(--text-color);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* === Buttons === */
+.btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: inline-block;
+    text-align: center;
+}
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+.btn-secondary:hover {
+    background-color: var(--secondary-hover);
+}
+.btn-danger {
+    background-color: var(--danger-color);
+    color: var(--text-color);
+}
+.btn-danger:hover {
+    background-color: var(--danger-hover);
+}
+.btn-full {
+    width: 100%;
+}
+
+/* === Main Content Wrapper === */
+.content-wrapper {
+    max-width: 1100px;
+    margin: 2.5rem auto;
+    padding: 0 1rem;
+}
+
+/* Glassmorphism Forms (Login, Register, Reset) */
+.form-container {
+    /* 1. Add max-width and margin to fix the size */
+    max-width: 500px;
+    margin: 2.5rem auto;
+
+    /* 2. Glassmorphism Style */
+    background: var(--glass-bg-dark);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+}
+.form-container legend {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--text-color);
+}
+.form-info {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--text-color-muted);
+}
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color-muted);
+}
+.form-control,
+.form-control-invalid {
+    width: 100%;
+    padding: 0.85rem;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--text-color);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+    outline: none;
+}
+.form-control-invalid {
+    border-color: var(--danger-color);
+}
+.invalid-feedback {
+    color: var(--danger-color);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+.toggle-password {
+    position: absolute;
+    top: 70%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+}
+
+/* === Home Page Hero === */
+.hero-section {
+    text-align: center;
+    background: var(--glass-bg-dark);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--border-color);
+    padding: 4rem 2rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2.5rem;
+    box-shadow: var(--shadow);
+}
+.hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+.hero-section p {
+    font-size: 1.25rem;
+    color: var(--text-color-muted);
+    margin-bottom: 2rem;
+}
+
+/* === Blog Feed Styling === */
+.feed-title {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+}
+/* Card for posts on the main feed */
+.post-summary {
+    background: var(--glass-bg-dark);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem 2rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.post-summary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.post-summary h2 a {
+    text-decoration: none;
+    color: var(--text-color);
+    transition: color 0.2s;
+}
+.post-summary h2 a:hover {
+    color: var(--primary-color);
+}
+.post-summary .post-meta {
+    font-size: 0.9rem;
+    color: var(--text-color-muted);
+    margin-bottom: 1rem;
+}
+.post-summary p {
+    color: var(--text-color-muted);
+    line-height: 1.6;
+}
+
+/* Style for the single post page */
+.post {
+    /* 1. Make the glass lighter (almost white) */
+    background: var(--glass-bg-light); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 2.5rem;
+}
+/* 2. Make the H2 title dark and interactive */
+.post h2 {
+    color: var(--text-color-dark); /* Dark color for title */
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    transition: color 0.2s;
+}
+.post h2:hover {
+    color: var(--primary-color); /* Blue on hover */
+}
+/* 3. Make the main text dark and readable */
+.post-content {
+    line-height: 1.7;
+    font-size: 1.1rem;
+    color: var(--text-color-dark); /* Dark color for content */
+}
+/* 4. Make the "By..." text dark */
+.post .post-meta {
+    color: var(--text-color-dark-muted); /* Muted dark color */
+}
+.post-controls {
+    margin-top: 1.5rem;
+    border-top: 1px solid #eee;
+    padding-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+}
+.post-controls form {
+    margin: 0;
+}
+/* ============================================= */
+
+/* === Flash Messages === */
+.alert {
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid transparent;
+    font-weight: 500;
+}
+.alert-success { background-color: #d1e7dd; color: #0f5132; border-color: #badbcc; }
+.alert-danger  { background-color: #f8d7da; color: #842029; border-color: #f5c2c7; }
+.alert-info    { background-color: #cff4fc; color: #055160; border-color: #b6effb; }
+
+/* === Footer === */
+.footer {
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 2rem;
+    color: rgba(255, 255, 255, 0.7); /* Semi-transparent light text */
+    font-weight: 500;
+}
+
+
+/*  Dashboard Welcome Box */
+.dashboard-welcome {
+    text-align: left; /* 1. Fixes the alignment */
+}
+
+.dashboard-welcome h2 {
+    font-size: 2.5rem; /* 2. Makes the "Welcome..." text big again */
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+
+
+/* New Grid Layout for Post Feeds */
+.post-grid {
+    display: grid;
+    /* This creates 2 equal-width columns */
+    grid-template-columns: repeat(2, 1fr);
+    /* This adds a nice gap between the cards */
+    gap: 1.5rem;
+}
+
+/* Responsive: On screens smaller than 768px, stack to 1 column */
+@media (max-width: 768px) {
+    .post-grid {
+        grid-template-columns: 1fr;
+    }
+} 
+
+
+/*  Dashboard Welcome Box === */
+.dashboard-welcome {
+    text-align: center; /* 1. Center all text */
+}
+.dashboard-welcome h2 {
+    font-size: 3rem;     /* 2. Increase 'Welcome' size */
+    margin-bottom: 1rem;
+}
+.dashboard-welcome p {
+    font-size: 1.1rem;   /* 4. Align subsequent lines */
+    line-height: 1.5;    /* 5. Decrease line spacing */
+    margin-bottom: 0.5rem; /* 5. Decrease line spacing */
+} 
+
+
+/*  PROFILE PAGE */
+.profile-container {
+    max-width: 700px;
+}
+.profile-info-group {
+    margin-bottom: 1.5rem; 
+}
+.profile-info-group .profile-label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-color-muted);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+.profile-info-group .profile-value {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+

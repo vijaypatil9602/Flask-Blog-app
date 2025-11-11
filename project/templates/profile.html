@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+    <!-- This is the container for profile info -->
+    <div class="form-container profile-container">
+        
+        <legend>My Profile</legend>
+        
+        <div class="profile-info-group">
+            <span class="profile-label">Full Name</span>
+            <span class="profile-value">{{ user.name }}</span>
+        </div>
+
+        <div class="profile-info-group">
+            <span class="profile-label">Email Address</span>
+            <span class="profile-value">{{ user.email }}</span>
+        </div>
+
+        <div class="profile-info-group">
+            <span class="profile-label">Mobile Number</span>
+            <span class="profile-value">{{ user.mobile }}</span>
+        </div>
+
+        <div class="profile-info-group">
+            <span class="profile-label">Address</span>
+            <span class="profile-value">{{ user.address }}</span>
+        </div>
+    
+    </div>
+
+
+{% endblock content %}

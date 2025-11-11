@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 1. Add Google Font (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 2. Link CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    {% if title %}
+        <title>Blog App - {{ title }}</title>
+    {% else %}
+        <title>Blog App</title>
+    {% endif %}
+</head>
+<body>
+
+    <!-- 3. The Header Navigation -->
+    <header class="header-nav">
+        <a href="{{ url_for('main.home') }}" class="logo">Blog App</a>
+        
+        <nav class="nav-links">
+            {% if current_user.is_authenticated %}
+                <!-- User is logged in -->
+                <a href="{{ url_for('main.home') }}">Home</a>
+                <a href="{{ url_for('dashboard.user_dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('dashboard.profile') }}">My Profile</a>
+                <!-- ============================ -->
+
+                <a href="{{ url_for('crud.new_post') }}">New Post</a>
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-secondary">Logout</a>
+                
+            {% else %}
+                <!-- User is logged out -->
+                <a href="{{ url_for('main.home') }}">Home</a>
+                
+                <!-- Dynamic Button Logic -->
+                {% if request.endpoint == 'auth.register' %}
+                    <!-- On Register page, make Login the primary button -->
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Login</a>
+                {% else %}
+                    <!-- On all other pages, make Sign Up the primary button -->
+                    <a href="{{ url_for('auth.login') }}">Login</a>
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Sign Up</a>
+                {% endif %}
+                
+            {% endif %}
+        </nav>
+    </header>
+
+    <!-- 4. Main content area where pages will be injected -->
+    <main class="content-wrapper">
+        <!-- Flash messages (alerts) -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Content block for other pages -->
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- 5. A new, simple footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Your Flask App. All rights reserved.</p>
+    </footer>
+    
+    <!-- 6.JavaScript file (for password toggle) -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 

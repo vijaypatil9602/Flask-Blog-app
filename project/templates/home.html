@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+    <!-- 1. The Hero Section  -->
+    <div class="hero-section">
+        <h1>Welcome to My Blog App 📝</h1>
+        <p>Register, log in and create your own content.</p>
+        
+        <div class="button-group">
+            <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Get Started</a>
+            <a href="{{ url_for('auth.login') }}" class="btn btn-secondary">Login</a>
+        </div>
+    </div>
+
+    <!-- 2. Blog Feed -->
+    <h2 class="feed-title">Latest Posts</h2>
+
+    {% if posts %}
+        <div class="post-grid">
+            {% for post in posts %}
+                <article class="post-summary">
+                    <h2><a href="{{ url_for('crud.view_post', post_id=post.id) }}">{{ post.title }}</a></h2>
+                    <div class="post-meta">
+                        By {{ post.author.name }} on {{ post.date_posted.strftime('%Y-%m-%d') }}
+                    </div>
+                    <p>{{ post.content | truncate(150) }}</Go></p> <!-- Shows a 150-char preview -->
+                </article>
+            {% endfor %}
+        </div> <!-- End of post-grid -->
+    {% else %}
+        <div class="post-summary">
+            <h3>No posts yet. Be the first to create one!</h3>
+        </div>
+    {% endif %}
+
+{% endblock content %}
